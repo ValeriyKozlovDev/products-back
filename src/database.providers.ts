@@ -11,11 +11,11 @@ export const databaseProviders = [
     useFactory: async (configService: ConfigService) => {
       const sequelize = new Sequelize({
         dialect: 'postgres',
-        host: 'database.cs08r8ibthr5.eu-north-1.rds.amazonaws.com',
+        host: 'products.cs08r8ibthr5.eu-north-1.rds.amazonaws.com',
         port: 5432,
         username: 'postgres',
-        password: 'Vgk990731',
-        database: 'nest',
+        password: 'vgk990731',
+        database: 'postgres',
       });
       sequelize.addModels([
         User,
