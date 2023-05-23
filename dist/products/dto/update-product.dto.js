@@ -39,5 +39,15 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UpdateProductDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UpdateProductDto.prototype, "fullDescription", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], UpdateProductDto.prototype, "year", void 0);
 exports.UpdateProductDto = UpdateProductDto;
 //# sourceMappingURL=update-product.dto.js.map

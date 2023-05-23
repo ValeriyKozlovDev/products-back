@@ -4,4 +4,6 @@ export declare class Product extends Model<Product> {
     price: number;
     image: string;
     description: string;
+    year: number;
+    fullDescription: string;
 }

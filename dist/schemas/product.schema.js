@@ -37,10 +37,24 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
-        allowNull: true,
+        allowNull: false,
     }),
     __metadata("design:type", String)
 ], Product.prototype, "description", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+    }),
+    __metadata("design:type", Number)
+], Product.prototype, "year", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+    }),
+    __metadata("design:type", String)
+], Product.prototype, "fullDescription", void 0);
 Product = __decorate([
     sequelize_typescript_1.Table
 ], Product);

@@ -29,7 +29,19 @@ export class Product extends Model<Product> {
 
     @Column({
         type: DataType.STRING,
-        allowNull: true,
+        allowNull: false,
     })
     description: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    year: number;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    fullDescription: string;
 }
