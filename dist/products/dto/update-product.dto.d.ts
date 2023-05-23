@@ -4,4 +4,6 @@ export declare class UpdateProductDto {
     readonly price: number;
     readonly image: string;
     readonly description: string;
+    readonly fullDescription: string;
+    readonly year: number;
 }

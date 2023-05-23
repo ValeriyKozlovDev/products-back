@@ -38,7 +38,9 @@ let ProductsService = class ProductsService {
         return product;
     }
     async getAllProducts() {
-        const products = await this.productsRepository.findAll({});
+        const products = await this.productsRepository.findAll({
+            attributes: ['id', 'name', 'price', 'image', 'description', 'createdAt', 'updatedAt']
+        });
         if (!products[0]) {
             throw new common_1.HttpException('Not Found', common_1.HttpStatus.NOT_FOUND);
         }

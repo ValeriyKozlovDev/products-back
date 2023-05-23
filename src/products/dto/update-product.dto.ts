@@ -21,4 +21,12 @@ export class UpdateProductDto {
   @IsString()
   @IsNotEmpty()
   readonly description: string;
+
+  @IsString()
+  @IsNotEmpty()
+  readonly fullDescription: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  readonly year: number;
 }

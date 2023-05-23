@@ -39,7 +39,9 @@ export class ProductsService {
     }
 
     async getAllProducts(): Promise<Product[]> {
-        const products = await this.productsRepository.findAll({});
+        const products = await this.productsRepository.findAll({
+            attributes: ['id', 'name', 'price', 'image', 'description', 'createdAt', 'updatedAt']
+        });
 
         if (!products[0]) {
             throw new HttpException('Not Found', HttpStatus.NOT_FOUND)
