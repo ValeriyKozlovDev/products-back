@@ -24,7 +24,7 @@ AppModule = __decorate([
             users_module_1.UsersModule,
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
-                envFilePath: `../development.env`,
+                envFilePath: `../.development.env`,
             }),
             auth_module_1.AuthModule,
             products_module_1.ProductsModule,

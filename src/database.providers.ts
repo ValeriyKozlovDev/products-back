@@ -11,10 +11,16 @@ export const databaseProviders = [
     useFactory: async (configService: ConfigService) => {
       const sequelize = new Sequelize({
         dialect: 'postgres',
-        host: 'products.cs08r8ibthr5.eu-north-1.rds.amazonaws.com',
+        dialectOptions: {
+          "ssl": {
+            "require": true,
+            "rejectUnauthorized": false
+          }
+        },
+        host: 'database.cs08r8ibthr5.eu-north-1.rds.amazonaws.com',
         port: 5432,
         username: 'postgres',
-        password: 'vgk990731',
+        password: 'Vgk990731',
         database: 'postgres',
       });
       sequelize.addModels([
@@ -23,7 +29,7 @@ export const databaseProviders = [
       ]);
       await sequelize.sync();
       return sequelize;
-
     },
   },
 ];
+
