@@ -4,17 +4,21 @@ import { Product } from '../../schemas/product.schema';
 import { PRODUCTS_REPOSITORY } from '../constants/products.constants';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { CreateProductDto } from '../dto/create-product.dto';
+import { FilesService } from 'src/files/files.service';
 
 @Injectable()
 export class ProductsService {
     constructor(
         @Inject(PRODUCTS_REPOSITORY) private readonly productsRepository: typeof Product,
+        private filesService: FilesService
     ) { }
 
     async createProduct(
         createProductDto: CreateProductDto,
+        image: any
     ): Promise<Product> {
-        const newProduct = await this.productsRepository.create(createProductDto);
+        const fileName = await this.filesService.createFile(image)
+        const newProduct = await this.productsRepository.create({ ...createProductDto, image: fileName });
 
         if (!newProduct) {
             throw new HttpException('Could not create', HttpStatus.BAD_REQUEST)
@@ -53,9 +57,11 @@ export class ProductsService {
 
     async updateProduct(
         updateProductDto: UpdateProductDto,
+        image: any,
     ): Promise<Product> {
+        const fileName = await this.filesService.createFile(image)
         const id: number = updateProductDto.id;
-        const isProductUpdate = await this.productsRepository.update(updateProductDto, {
+        const isProductUpdate = await this.productsRepository.update({ ...updateProductDto, image: fileName }, {
             where: { id },
         });
 

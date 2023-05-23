@@ -13,6 +13,9 @@ const users_module_1 = require("./users/users.module");
 const config_1 = require("@nestjs/config");
 const auth_module_1 = require("./auth/auth.module");
 const products_module_1 = require("./products/products.module");
+const files_module_1 = require("./files/files.module");
+const serve_static_1 = require("@nestjs/serve-static");
+const path = require("path");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -26,8 +29,12 @@ AppModule = __decorate([
                 isGlobal: true,
                 envFilePath: `../.development.env`,
             }),
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: path.resolve('src/static'),
+            }),
             auth_module_1.AuthModule,
             products_module_1.ProductsModule,
+            files_module_1.FilesModule,
         ],
     })
 ], AppModule);

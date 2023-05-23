@@ -15,12 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductsService = void 0;
 const common_1 = require("@nestjs/common");
 const products_constants_1 = require("../constants/products.constants");
+const files_service_1 = require("../../files/files.service");
 let ProductsService = class ProductsService {
-    constructor(productsRepository) {
+    constructor(productsRepository, filesService) {
         this.productsRepository = productsRepository;
+        this.filesService = filesService;
     }
-    async createProduct(createProductDto) {
-        const newProduct = await this.productsRepository.create(createProductDto);
+    async createProduct(createProductDto, image) {
+        const fileName = await this.filesService.createFile(image);
+        const newProduct = await this.productsRepository.create(Object.assign(Object.assign({}, createProductDto), { image: fileName }));
         if (!newProduct) {
             throw new common_1.HttpException('Could not create', common_1.HttpStatus.BAD_REQUEST);
         }
@@ -46,9 +49,10 @@ let ProductsService = class ProductsService {
         }
         return products;
     }
-    async updateProduct(updateProductDto) {
+    async updateProduct(updateProductDto, image) {
+        const fileName = await this.filesService.createFile(image);
         const id = updateProductDto.id;
-        const isProductUpdate = await this.productsRepository.update(updateProductDto, {
+        const isProductUpdate = await this.productsRepository.update(Object.assign(Object.assign({}, updateProductDto), { image: fileName }), {
             where: { id },
         });
         if (!isProductUpdate[0]) {
@@ -72,7 +76,7 @@ let ProductsService = class ProductsService {
 ProductsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)(products_constants_1.PRODUCTS_REPOSITORY)),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [Object, files_service_1.FilesService])
 ], ProductsService);
 exports.ProductsService = ProductsService;
 //# sourceMappingURL=products.service.js.map
