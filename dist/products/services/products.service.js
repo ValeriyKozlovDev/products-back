@@ -21,9 +21,12 @@ let ProductsService = class ProductsService {
         this.productsRepository = productsRepository;
         this.filesService = filesService;
     }
-    async createProduct(createProductDto, image) {
+    async uploadImage(image) {
         const fileName = await this.filesService.createFile(image);
-        const newProduct = await this.productsRepository.create(Object.assign(Object.assign({}, createProductDto), { image: fileName }));
+        return { fileName: fileName };
+    }
+    async createProduct(createProductDto) {
+        const newProduct = await this.productsRepository.create(createProductDto);
         if (!newProduct) {
             throw new common_1.HttpException('Could not create', common_1.HttpStatus.BAD_REQUEST);
         }
@@ -49,10 +52,9 @@ let ProductsService = class ProductsService {
         }
         return products;
     }
-    async updateProduct(updateProductDto, image) {
-        const fileName = await this.filesService.createFile(image);
+    async updateProduct(updateProductDto) {
         const id = updateProductDto.id;
-        const isProductUpdate = await this.productsRepository.update(Object.assign(Object.assign({}, updateProductDto), { image: fileName }), {
+        const isProductUpdate = await this.productsRepository.update(updateProductDto, {
             where: { id },
         });
         if (!isProductUpdate[0]) {

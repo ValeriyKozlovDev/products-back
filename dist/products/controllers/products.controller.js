@@ -14,16 +14,19 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductsController = void 0;
 const common_1 = require("@nestjs/common");
+const platform_express_1 = require("@nestjs/platform-express");
 const update_product_dto_1 = require("../dto/update-product.dto");
 const create_product_dto_1 = require("../dto/create-product.dto");
 const products_service_1 = require("../services/products.service");
-const platform_express_1 = require("@nestjs/platform-express");
 let ProductsController = class ProductsController {
     constructor(productsService) {
         this.productsService = productsService;
     }
-    async createProduct(createProductDto, image) {
-        return await this.productsService.createProduct(createProductDto, image);
+    async uploadImage(image) {
+        return await this.productsService.uploadImage(image);
+    }
+    async createProduct(createProductDto) {
+        return await this.productsService.createProduct(createProductDto);
     }
     async getAll() {
         return await this.productsService.getAllProducts();
@@ -31,20 +34,26 @@ let ProductsController = class ProductsController {
     async getProductById(productId) {
         return await this.productsService.getProductById(productId);
     }
-    async updateProduct(productId, updateProductDto, image) {
-        return await this.productsService.updateProduct(updateProductDto, image);
+    async updateProduct(productId, updateProductDto) {
+        return await this.productsService.updateProduct(updateProductDto);
     }
     async deleteProduct(productId) {
         return await this.productsService.deleteProduct(productId);
     }
 };
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('/image'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image')),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.UploadedFile)()),
+    __param(0, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_product_dto_1.CreateProductDto, Object]),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ProductsController.prototype, "uploadImage", null);
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_product_dto_1.CreateProductDto]),
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "createProduct", null);
 __decorate([
@@ -62,12 +71,10 @@ __decorate([
 ], ProductsController.prototype, "getProductById", null);
 __decorate([
     (0, common_1.Put)('/:productId'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image')),
     __param(0, (0, common_1.Param)('productId')),
     __param(1, (0, common_1.Body)()),
-    __param(2, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_product_dto_1.UpdateProductDto, Object]),
+    __metadata("design:paramtypes", [Number, update_product_dto_1.UpdateProductDto]),
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "updateProduct", null);
 __decorate([

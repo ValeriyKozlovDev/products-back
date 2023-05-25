@@ -13,16 +13,20 @@ export class ProductsService {
         private filesService: FilesService
     ) { }
 
+    async uploadImage(
+        image: any
+    ): Promise<any> {
+        const fileName = await this.filesService.createFile(image)
+        return { fileName: fileName }
+    }
+
     async createProduct(
         createProductDto: CreateProductDto,
-        image: any
     ): Promise<Product> {
-        const fileName = await this.filesService.createFile(image)
-        const newProduct = await this.productsRepository.create({ ...createProductDto, image: fileName });
+        const newProduct = await this.productsRepository.create(createProductDto);
 
         if (!newProduct) {
             throw new HttpException('Could not create', HttpStatus.BAD_REQUEST)
-
         }
         return await this.productsRepository.findOne({
             where: { id: newProduct.id },
@@ -57,11 +61,9 @@ export class ProductsService {
 
     async updateProduct(
         updateProductDto: UpdateProductDto,
-        image: any,
     ): Promise<Product> {
-        const fileName = await this.filesService.createFile(image)
         const id: number = updateProductDto.id;
-        const isProductUpdate = await this.productsRepository.update({ ...updateProductDto, image: fileName }, {
+        const isProductUpdate = await this.productsRepository.update(updateProductDto, {
             where: { id },
         });
 
