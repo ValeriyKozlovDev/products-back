@@ -7,6 +7,8 @@ import { ProductsModule } from './products/products.module';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
+import { MulterModule } from '@nestjs/platform-express';
+
 @Module({
     controllers: [],
     providers: [...databaseProviders],

@@ -6,9 +6,10 @@ export declare class ProductsService {
     private readonly productsRepository;
     private filesService;
     constructor(productsRepository: typeof Product, filesService: FilesService);
-    createProduct(createProductDto: CreateProductDto, image: any): Promise<Product>;
+    uploadImage(image: any): Promise<any>;
+    createProduct(createProductDto: CreateProductDto): Promise<Product>;
     getProductById(id: number): Promise<Product>;
     getAllProducts(): Promise<Product[]>;
-    updateProduct(updateProductDto: UpdateProductDto, image: any): Promise<Product>;
+    updateProduct(updateProductDto: UpdateProductDto): Promise<Product>;
     deleteProduct(productId: number): Promise<object>;
 }
